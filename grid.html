@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <script data-require="jquery@3.1.1" data-semver="3.1.1" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+  </head>
+
+  <body>
+    <p>first paragraph</p>
+    <p>second paragraph</p>
+    <div>
+      <div id="11" class="red"></div>
+    </div>
+    
+    <script>
+      var x=$("#11").css("left");
+      var y=$("#11").css("top");
+      $("#11").click(function(){
+        $("p:first").html("new text");}) 
+      $("#11").mousedown(function(){
+      $("body").on("mousemove",function(event){
+        $("p:eq( 1 )").text("pageX: " + event.pageX + ", pageY: " + event.pageY);
+        $("div").css({left:event.pageX,
+        top:event.pageY})
+      });
+      });
+      $("body").mouseup(function(){
+      $("body").off("mousemove");
+      $("#11").animate({
+        left: x,
+        top: y
+      })
+      });
+    </script>
+  </body>
+
+</html>
