@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <script data-require="jquery@3.1.1" data-semver="3.1.1" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+  </head>
+
+  <body>
+    <div class="main"></div>
+    <script>
+      for(i=0;i<5;i++){
+        for(j=0;j<5;j++){
+      $(".main").append("<div id="+i+"_"+j+" class='red'></div>");
+      var left_=(j)*82+"px";
+      var top_=(i)*82+"px";
+      $("div:last").css("left",left_);
+      $("div:last").css("top",top_);
+        }
+      }
+      
+      $("#3_3").mousedown(function(){
+      $("body").on("mousemove",function(event){
+        $("p:eq( 1 )").text("pageX: " + event.pageX + ", pageY: " + event.pageY);
+        $("#3_3").css({left:event.pageX,
+        top:event.pageY})
+      });
+      });
+    </script>
+  </body>
+
+</html>
