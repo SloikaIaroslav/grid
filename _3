@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <script data-require="jquery@3.1.1" data-semver="3.1.1" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+  </head>
+
+  <body>
+    <div class="main"></div>
+    <script>
+    var count=0;
+    var obj;
+    var adress_x = new Array();
+    var adress_y = new Array();
+      for(i=0;i<5;i++){
+        for(j=0;j<5;j++){
+      $(".main").append("<div id="+count+" class='red'></div>");
+      var left_=(j)*82+"px";
+      var top_=(i)*82+"px";
+      $("div:last").css("left",left_);
+      $("div:last").css("top",top_);
+      adress_x[count] = left_;
+      adress_y[count] = top_;
+      count++;
+        }
+      }
+     
+      $(".red").click(function(){
+        $("body").append("<p>"+$(this).attr("id")+"</p>");
+      })
+      $(".red").mousedown(function(){
+      obj="#"+$(this).attr("id");
+      $(document).on("mousemove",function(event){
+        $(obj).css({left:event.pageX,
+        top:event.pageY})
+      });
+      });
+      $(document).mouseup(function(){
+      $(document).off("mousemove");
+      console.log(obj);
+      $(obj).animate({
+        left: adress_x[parseInt(obj.replace("#"," "))],
+        top: adress_y[parseInt(obj.replace("#"," "))]
+      })
+      });
+      
+    </script>
+  </body>
+
+</html>
