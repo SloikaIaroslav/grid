@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <script data-require="jquery@3.1.1" data-semver="3.1.1" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+  </head>
+
+  <body>
+
+  
+   <script>
+   var n=5,m=10;
+   var dots = [];
+     for(i=0;i<n;i++){
+       dots.push(new Array());
+        for(j=0;j<m;j++){
+          $("body").append("<div id='"+i+"_"+j+"' class='red'></div>");
+           $("div:last").css("left",($( document ).width()/(m))*j);
+           $("div:last").css("top",($( document ).height()/(n))*i);
+          dots[i].push(new Array( parseInt($("div:last").css("left")),parseInt($("div:last").css("top"))));
+        }
+     }
+    //console.log($(".red").css("left"));
+    $(".red").mousedown(function(){
+      obj=this;
+        $(document).on("mousemove",function(event){
+           $(obj).css({left:event.pageX, top:event.pageY});
+           $(".red").each(function(){
+              var y=$(this).attr("id").slice(0,$(this).attr("id").search("_"));
+              var x=$(this).attr("id").slice($(this).attr("id").search("_")+1,);
+              $(this).animate({
+              left: dots[y][x][0],
+              top: dots[y][x][1]
+      });
+        });
+    });
+    $(document).mouseup(function(){
+      
+      $(document).off("mousemove");
+      
+      $(".red").each(function(){
+        var y=$(this).attr("id").slice(0,$(this).attr("id").search("_"));
+        var x=$(this).attr("id").slice($(this).attr("id").search("_")+1,);
+        $(this).animate({
+        left: dots[y][x][0],
+        top: dots[y][x][1]
+      });
+      
+      }
+        
+        );
+    });
+   </script>
+   
+  
+  </body>
+
+</html>
