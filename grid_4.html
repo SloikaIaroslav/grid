@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <script data-require="jquery@3.1.1" data-semver="3.1.1" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+  </head>
+
+  <body>
+    <div class="main"></div>
+    <script>
+    var count=0;
+    var n=5,m=10;
+    var obj, obj_left,obj_left_left, obj_right,obj_right_right, obj_top, obj_bottom;
+    var adress_x = new Array();
+    var adress_y = new Array();
+      for(i=0;i<n;i++){
+        for(j=0;j<m;j++){
+      $(".main").append("<div id="+count+" class='red'></div>");
+      var left_=(j)*(($( document ).width()-10)/m)+"px";//
+      var top_=(i)*(($( document ).height()/2)/n)+"px";
+      $("div:last").css("left",left_);
+      $("div:last").css("top",top_);
+      adress_x[count] = left_;
+      adress_y[count] = top_;
+      count++;
+        }
+      }
+     
+      $(".red").click(function(){
+        $("body").append("<p>"+$(this).attr("id")+"</p>");
+      })
+      $(".red").mousedown(function(){
+        
+      obj="#"+$(this).attr("id");
+      obj_left="#"+($(this).attr("id")-1);
+      obj_left_left="#"+($(this).attr("id")-2);
+      obj_right="#"+(parseInt($(this).attr("id"))+1);
+      obj_right_right="#"+(parseInt($(this).attr("id"))+2);
+      obj_top="#"+($(this).attr("id")-m);
+      obj_bottom="#"+($(this).attr("id")+m);
+      
+      $(document).on("mousemove",function(event){
+        var diference_left=event.pageX-parseInt(adress_x[parseInt(obj.replace("#",""))]);
+        var diference_top=event.pageY-parseInt(adress_y[parseInt(obj.replace("#",""))]);
+        console.log(obj_left_left,obj_left,obj,obj_right,obj_right_right);
+        $(obj).css({left:event.pageX,
+        top:event.pageY});
+       
+        $(obj_left).css({left:(event.pageX+parseInt(adress_x[parseInt(obj_left_left.replace("#"," "))]))/2,
+ top:(event.pageY+parseInt(adress_y[parseInt(obj_left_left.replace("#"," "))]))/2});
+ 
+         $(obj_right).css({left:(event.pageX+parseInt(adress_x[parseInt(obj_right_right.replace("#"," "))]))/2,
+ top:(event.pageY+parseInt(adress_y[parseInt(obj_right_right.replace("#"," "))]))/2});
+      });
+      });
+      $(document).mouseup(function(){
+      $(document).off("mousemove");
+     // console.log(obj);
+      $(obj).animate({
+        left: adress_x[parseInt(obj.replace("#"," "))],
+        top: adress_y[parseInt(obj.replace("#"," "))]
+      });
+      $(obj_left).animate({
+        left: adress_x[parseInt(obj_left.replace("#"," "))],
+        top: adress_y[parseInt(obj_left.replace("#"," "))]
+      });
+       $(obj_right).animate({
+        left: adress_x[parseInt(obj_right.replace("#"," "))],
+        top: adress_y[parseInt(obj_right.replace("#"," "))]
+      })
+      });
+      
+    </script>
+  </body>
+
+</html>
